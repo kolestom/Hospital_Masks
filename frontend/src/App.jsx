@@ -9,10 +9,14 @@ function App() {
     console.log(resp.data)
   }
 
-
+  const createHonved = async() =>{
+    const resp = await axios.post('http://localhost:7777/api/create-hospital')
+    console.log(resp.data)
+  }
   return (
     <div className="App">
       <button onClick={handleClick}>Birizga</button>
+      <button onClick={createHonved}>Create Honved Hospital</button>
     </div>
   )
 }
