@@ -1,18 +1,19 @@
 const mongoose = require("mongoose");
-const Hospital = require("./models/HospitalSchema");
+const Invoice = require("./models/InvoiceSchema");
+
 
 mongoose.connect(
   "mongodb+srv://hospitalsDB:hospitalsDB2023@hospital.shz8y3u.mongodb.net/hospitalsDB",
   () => console.log("MongoDB connected")
 );
 
-const getAllHospitals = async () => {
+const getAllInvoices = async () => {
   try {
-    const hospitals = await Hospital.find();
-    console.log(hospitals);
+    const invoices = await Invoice.find();
+    console.log(invoices);
   } catch (error) {
     console.error(error);
   }
 };
 
-getAllHospitals();
+getAllInvoices();
