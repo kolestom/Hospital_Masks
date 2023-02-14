@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const AddressSchema = new mongoose.Schema({
     country_code: String,
@@ -29,6 +29,7 @@ const PartnerShippingSchema = new mongoose.Schema({
     address: AddressSchema
 });
 
+
 const HospitalSchema = new mongoose.Schema({
     id: Number,
     name: String,
@@ -49,4 +50,5 @@ const HospitalSchema = new mongoose.Schema({
     partner_show_type: String
 });
 
-export default mongoose.model('Hospital', HospitalSchema);
+module.exports = mongoose.model('Hospital', HospitalSchema);
+

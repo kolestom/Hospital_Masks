@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const ProductSchema = new mongoose.Schema({
     id: { type: Number, required: true },
@@ -18,4 +18,4 @@ const ProductSchema = new mongoose.Schema({
     purchase_price: { type: Number, default: 0 }
 });
 
-export default mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Product', ProductSchema);
