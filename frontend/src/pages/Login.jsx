@@ -1,21 +1,32 @@
-import React, { useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import axios from 'axios'
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/login", { username, password });
-      console.log(res.data);
+      let response = await axios.post("http://localhost:7777/api/login", { 
+        username, 
+        password 
+      });
+      setUsername("")
+      setPassword("")
+      console.log(response.data);
+      <Link></Link>
     } catch (err) {
       console.error(err);
     }
   };
 
+
   return (
+    <>
+
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -31,7 +42,8 @@ const Login = () => {
       />
       <button type="submit">Login</button>
     </form>
-  );
-};
 
+    </>
+  )
+}
 export default Login;
