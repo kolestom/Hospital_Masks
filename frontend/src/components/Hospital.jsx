@@ -1,10 +1,14 @@
-const Hospital = () => {
+import { Link } from "react-router-dom"
+
+const Hospital = ({hospital}) => {
 
   return (
     <>
-    <Link to=':hospitalname'>
-      <h1>hospital name</h1>
+    <Link to="/">
+      <h1>{hospital.name}</h1>
+      <h1>{hospital.address.city}</h1>
     </Link>
+    
     </>
   )
 }

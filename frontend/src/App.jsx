@@ -3,17 +3,14 @@ import './App.css'
 import axios from 'axios'
 import { Outlet, Router , RouterProvider , useRouteLoaderData } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { AuthProvider } from './AuthContext'
 
 function App() {
   
   
-  const [ loggedInUser, setLoggedInUser] = useState({name: "Joozsi", age:35})
-  
-
-  console.log(loggedInUser)
-  
+   
   return (
-    <>
+    <AuthProvider>
     <div className="App">
       <nav>
         <div>
@@ -26,7 +23,7 @@ function App() {
       </nav>
       <Outlet></Outlet>
     </div>
-    </>
+    </AuthProvider>
   )
 }
 

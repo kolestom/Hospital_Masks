@@ -14,7 +14,7 @@ const router = createBrowserRouter([
             {path: "login", element: <Login />},
             {path: "registration", element: <Registration />},
             {path: "loggedin", element: <LoggedInPage />}, //user idt berakni a linkbe?
-            {path: ":hospitalname", element: <HospitalPage />}
+            {path: ":hospitalid", element: <HospitalPage />}
         ]
     }
 ]);

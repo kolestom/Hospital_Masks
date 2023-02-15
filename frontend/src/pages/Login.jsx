@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from 'axios'
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import AuthContext from "../AuthContext"
 
 
 const Login = () => {
   
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext)
+
   const navigate = useNavigate()
   const location = useLocation()
   // const loggedInUser = location.state.loggedInUser
@@ -13,7 +15,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false)
-  const [loggedInUser, setLoggedInUser] = useState({})
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();

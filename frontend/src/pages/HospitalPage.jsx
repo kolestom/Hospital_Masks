@@ -2,6 +2,7 @@ const HospitalPage = () => {
 
   return (
     <>
+    
     </>
   )
 }
