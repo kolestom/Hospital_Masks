@@ -24,8 +24,8 @@ router.post('/create_order', async (req, res) => {
         partner_id: req.body.hospitalID,
         block_id: 0,
         type: "invoice",
-        fulfillment_date: today.toISOString().split('T')[0],
-        due_date: dueDate.toISOString().split('T')[0],
+        fulfillment_date: today.toISOString().split("T")[0],
+        due_date: dueDate.toISOString().split("T")[0],
         payment_method: "wire_transfer",
         language: "hu",
         currency: "HUF",
@@ -33,10 +33,20 @@ router.post('/create_order', async (req, res) => {
         electronic: false,
         paid: false,
         items: [
+          // {
+          //   product_id: 12855670,
+          //   quantity: req.body.quantity,
+          //   comment: "",
+          // },
           {
-            product_id: 12855670,
+            name: "FFP3 Mask",
+            unit_price: 100,
+            unit_price_type: "gross",
             quantity: req.body.quantity,
+            unit: "db",
+            vat: "0%",
             comment: "",
+            entitlement: "",
           },
         ],
         comment: "",
@@ -57,7 +67,7 @@ router.post('/create_order', async (req, res) => {
           "X-API-KEY": "a6ea6778-aba3-11ed-9767-0254eb6072a0",
         },
       }
-    )
+    );
       const newQuantity = availableQuantity - req.body.quantity;
       await Product.updateOne({}, { quantity: newQuantity });
       // console.log(res.json(invoice.data))
