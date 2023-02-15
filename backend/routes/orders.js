@@ -4,6 +4,26 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const Invoice = require('../models/InvoiceSchema')
 const Product = require('../models/ProductSchema')
+const Hospital = require("../models/HospitalSchema");
+
+
+router.get('/allhospitals', async (req, res) => {
+    try {
+      const hospitals = await Hospital.find();
+      return res.send(hospitals).status(200)
+    } catch (e) {
+      console.error(e);
+      return res.send(e.message).status(400)
+    }
+})
+
+
+
+router.post('/order_history', async (req, res) =>{
+    console.log(req.body)
+    let invoices = await Invoice.find({ "partner.id": req.body.hospitalID})
+    res.send(invoices)
+})
 
 
 router.post('/create_order', async (req, res) => {
@@ -33,18 +53,13 @@ router.post('/create_order', async (req, res) => {
         electronic: false,
         paid: false,
         items: [
-          // {
-          //   product_id: 12855670,
-          //   quantity: req.body.quantity,
-          //   comment: "",
-          // },
           {
             name: "FFP3 Mask",
-            unit_price: 100,
+            unit_price: req.body.unit_price,
             unit_price_type: "gross",
             quantity: req.body.quantity,
             unit: "db",
-            vat: "0%",
+            vat: req.body.vat,
             comment: "",
             entitlement: "",
           },

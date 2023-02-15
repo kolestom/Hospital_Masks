@@ -18,9 +18,26 @@ const handleClick = async () => {
     const resp = await axios.post(
       "http://localhost:7777/api/orders/create_order",
       {
-        hospitalID: 1770181046,
-        quantity: 10
+        hospitalID: 1770327103,
+        quantity: 10,
+        vat: "27%",
+        unit_price: 127
       }
     );
     console.log(resp.data)
+  }
+
+  useEffect(()=>{
+    const init = async () => {
+      const response = await axios.get("http://localhost:7777/api/orders/allhospitals")
+      setAllHospitals(response.data)
+    }
+    init()
+  }, [])
+
+  const getOrderHistory = async () => {
+    let response = await axios.post("http://localhost:7777/api/orders/order_history",{
+      hospitalID: allHospitals[1].id
+    })
+    console.log(response.data)
   }
