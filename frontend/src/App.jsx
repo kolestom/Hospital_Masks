@@ -8,7 +8,7 @@ function App() {
   
   
   const [ loggedInUser, setLoggedInUser] = useState({name: "Joozsi", age:35})
-  const [ allHospitals, setAllHospitals] = useState([])
+  
 
   console.log(loggedInUser)
   

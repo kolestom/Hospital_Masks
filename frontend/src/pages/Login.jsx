@@ -1,14 +1,19 @@
 import { useState } from "react";
 import axios from 'axios'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+
 
 const Login = () => {
   
+  const navigate = useNavigate()
   const location = useLocation()
   // const loggedInUser = location.state.loggedInUser
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [authenticated, setAuthenticated] = useState(false)
+  const [loggedInUser, setLoggedInUser] = useState({})
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,16 +22,23 @@ const Login = () => {
         username, 
         password 
       });
+
       setUsername("")
       setPassword("")
-      console.log(response.data);
-      // console.log(loggedInUser)
+      console.log(response);
+      if (response.status === 200) {
+        console.log("bejott");
+        setLoggedInUser(response.data)
+        setAuthenticated(true)
+        navigate("/loggedin")
+      }
       
     } catch (err) {
       console.error(err);
     }
   };
-
+  console.log(loggedInUser)
+  console.log(authenticated);
 
   return (
     <>
