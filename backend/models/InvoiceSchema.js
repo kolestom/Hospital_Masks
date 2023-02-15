@@ -2,366 +2,147 @@ const mongoose = require("mongoose");
 
 const InvoiceSchema = new mongoose.Schema({
   id: Number,
-  invoice_number: {
-    type: "Date",
-  },
-  type: {
-    type: "String",
-  },
-  correction_type: {
-    type: "String",
-  },
-  cancelled: {
-    type: "Boolean",
-  },
-  block_id: {
-    type: "Number",
-  },
-  payment_status: {
-    type: "String",
-  },
-  payment_method: {
-    type: "String",
-  },
-  gross_total: {
-    type: "Number",
-  },
-  currency: {
-    type: "String",
-  },
-  conversion_rate: {
-    type: "Number",
-  },
-  invoice_date: {
-    type: "Date",
-  },
-  fulfillment_date: {
-    type: "Date",
-  },
-  due_date: {
-    type: "Date",
-  },
-  paid_date: {
-    type: "Date",
-  },
+  invoice_number: String,
+  type: String,
+  cancelled: Boolean,
+  block_id: Number,
+  payment_status: String,
+  payment_method: String,
+  gross_total: Number,
+  currency: String,
+  conversion_rate: Number,
+  invoice_date: String,
+  fulfillment_date: String,
+  due_date: String,
+  paid_date: String,
   organization: {
-    name: {
-      type: "String",
-    },
-    tax_number: {
-      type: "String",
-    },
+    name: String,
+    tax_number: String,
     bank_account: {
-      id: {
-        type: "Number",
-      },
-      name: {
-        type: "String",
-      },
-      account_number: {
-        type: "String",
-      },
-      account_number_iban: {
-        type: "String",
-      },
-      swift: {
-        type: "String",
-      },
+      id: Number,
+      name: String,
+      account_number: String,
+      account_number_iban: String,
+      swift: String,
     },
     address: {
-      country_code: {
-        type: "String",
-      },
-      post_code: {
-        type: "Date",
-      },
-      city: {
-        type: "String",
-      },
-      address: {
-        type: "Date",
-      },
+      country_code: String,
+      post_code: String,
+      city: String,
+      address: String,
     },
-    small_taxpayer: {
-      type: "Boolean",
-    },
-    ev_number: {
-      type: "String",
-    },
-    eu_tax_number: {
-      type: "String",
-    },
-    cash_settled: {
-      type: "Boolean",
-    },
+    small_taxpayer: Boolean,
+    ev_number: String,
+    eu_tax_number: String,
+    cash_settled: Boolean,
   },
   partner: {
-    id: {
-      type: "Number",
-    },
-    name: {
-      type: "String",
-    },
+    id: Number,
+    name: String,
     address: {
-      country_code: {
-        type: "String",
-      },
-      post_code: {
-        type: "Date",
-      },
-      city: {
-        type: "String",
-      },
-      address: {
-        type: "Date",
-      },
+      country_code: String,
+      post_code: String,
+      city: String,
+      address: String,
     },
-    emails: {
-      type: ["String"],
-    },
-    taxcode: {
-      type: "String",
-    },
-    iban: {
-      type: "String",
-    },
-    swift: {
-      type: "String",
-    },
-    account_number: {
-      type: "String",
-    },
-    phone: {
-      type: "String",
-    },
-    general_ledger_number: {
-      type: "String",
-    },
-    tax_type: {
-      type: "String",
-    },
+    emails: [String],
+    taxcode: String,
+    iban: String,
+    swift: String,
+    account_number: String,
+    phone: String,
+    general_ledger_number: String,
+    tax_type: String,
     custom_billing_settings: {
-      payment_method: {
-        type: "Mixed",
-      },
-      document_form: {
-        type: "Mixed",
-      },
-      due_days: {
-        type: "Mixed",
-      },
-      document_currency: {
-        type: "Mixed",
-      },
-      template_language_code: {
-        type: "Mixed",
-      },
+      payment_method: String,
+      document_form: String,
+      due_days: Number,
+      document_currency: String,
+      template_language_code: String,
       discount: {
-        type: "Mixed",
+        type: String,
+        value: Number,
       },
     },
-    group_member_tax_number: {
-      type: "String",
-    },
-    giro_settings: {
-      giro_default_settings: {
-        type: "Boolean",
-      },
-      giro_payment_request_enabled: {
-        type: "Boolean",
-      },
-      giro_different_amount_allowed: {
-        type: "Boolean",
-      },
-    },
-    partner_shipping: {
-      match: {
-        type: "Boolean",
-      },
-      name: {
-        type: "String",
-      },
-      mode: {
-        type: "String",
-      },
-      address: {
-        country_code: {
-          type: "String",
-        },
-        post_code: {
-          type: "String",
-        },
-        city: {
-          type: "String",
-        },
-        address: {
-          type: "String",
-        },
-      },
-    },
-    internal_comment: {
-      type: "String",
-    },
-    partner_show_type: {
-      type: "Mixed",
-    },
+    group_member_tax_number: String,
   },
   document_partner: {
-    id: {
-      type: "Number",
-    },
-    name: {
-      type: "String",
-    },
+    id: Number,
+    name: String,
     address: {
-      country_code: {
-        type: "String",
-      },
-      post_code: {
-        type: "Date",
-      },
-      city: {
-        type: "String",
-      },
-      address: {
-        type: "Date",
-      },
+      country_code: String,
+      post_code: String,
+      city: String,
+      address: String,
     },
-    emails: {
-      type: ["String"],
-    },
-    taxcode: {
-      type: "String",
-    },
-    iban: {
-      type: "String",
-    },
-    swift: {
-      type: "String",
-    },
-    account_number: {
-      type: "String",
-    },
-    phone: {
-      type: "String",
-    },
-    tax_type: {
-      type: "String",
-    },
-    partner_shipping: {
-      match: {
-        type: "Boolean",
-      },
-      name: {
-        type: "String",
-      },
-      mode: {
-        type: "String",
-      },
-      address: {
-        country_code: {
-          type: "String",
-        },
-        post_code: {
-          type: "String",
-        },
-        city: {
-          type: "String",
-        },
-        address: {
-          type: "String",
-        },
-      },
-    },
+    emails: [String],
+    taxcode: String,
+    iban: String,
+    swift: String,
+    account_number: String,
+    phone: String,
+    tax_type: String,
   },
-  electronic: {
-    type: "Boolean",
-  },
-  comment: {
-    type: "String",
-  },
-  tags: {
-    type: "Array",
-  },
-  notification_status: {
-    type: "String",
-  },
-  language: {
-    type: "String",
-  },
-  items: {
-    type: ["Mixed"],
-  },
+  electronic: Boolean,
+  comment: String,
+  tags: [String],
+  notification_status: String,
+  language: String,
+  items: [
+    {
+      product_id: Number,
+      name: String,
+      net_unit_amount: Number,
+      quantity: Number,
+      unit: String,
+      net_amount: Number,
+      gross_amount: Number,
+      vat: String,
+      vat_amount: Number,
+      entitlement: String,
+      comment: String,
+    },
+  ],
   summary: {
-    net_amount: {
-      type: "Number",
-    },
-    net_amount_local: {
-      type: "Number",
-    },
-    gross_amount_local: {
-      type: "Number",
-    },
-    vat_amount: {
-      type: "Number",
-    },
-    vat_amount_local: {
-      type: "Number",
-    },
-    vat_rate_summary: {
-      type: ["Mixed"],
-    },
+    net_amount: Number,
+    net_amount_local: Number,
+    gross_amount_local: Number,
+    vat_amount: Number,
+    vat_amount_local: Number,
+    vat_rate_summary: [
+      {
+        vat_name: String,
+        vat_percentage: Number,
+        vat_rate_net_amount: Number,
+        vat_rate_vat_amount: Number,
+        vat_rate_vat_amount_local: Number,
+        vat_rate_gross_amount: Number,
+      },
+    ],
   },
   settings: {
-    mediated_service: {
-      type: "Boolean",
-    },
-    without_financial_fulfillment: {
-      type: "Boolean",
-    },
-    online_payment: {
-      type: "String",
-    },
-    should_send_email: {
-      type: "Boolean",
-    },
-    round: {
-      type: "String",
-    },
-    no_send_onlineszamla_by_user: {
-      type: "Boolean",
-    },
-    order_number: {
-      type: "String",
-    },
-    place_id: {
-      type: "Mixed",
-    },
-    instant_payment: {
-      type: "Boolean",
-    },
-    selected_type: {
-      type: "String",
-    },
-    dont_send_to_nav_reason: {
-      type: "Mixed",
-    },
-    instant_payment_request: {
-      type: "Mixed",
-    },
+    mediated_service: Boolean,
+    without_financial_fulfillment: Boolean,
+    online_payment: String,
+    round: String,
+    no_send_onlineszamla_by_user: Boolean,
+    order_number: String,
+    place_id: Number,
+    instant_payment: Boolean,
+    selected_type: String,
   },
-  related_documents: {
-    type: "Array",
-  },
-  online_szamla_status: {
-    type: "String",
-  },
+  online_szamla_status: String,
+  related_documents: [
+    {
+      id: Number,
+      invoice_number: String,
+    },
+  ],
   discount: {
-    type: "Mixed",
+    type: String,
+    value: Number,
   },
-  recurring_id: {
-    type: "Mixed",
-  },
+  correction_type: String,
 });
 
-module.exports = mongoose.model('Invoice', InvoiceSchema);
+module.exports = mongoose.model("Invoice", InvoiceSchema);
