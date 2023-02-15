@@ -7,12 +7,17 @@ import { Link } from 'react-router-dom'
 function App() {
   
   
+  const [ loggedInUser, setLoggedInUser] = useState({name: "Joozsi", age:35})
+  const [ allHospitals, setAllHospitals] = useState([])
+
+  console.log(loggedInUser)
+  
   return (
     <>
     <div className="App">
       <nav>
         <div>
-          <Link to="registration">Registration</Link>
+          <Link to="registration" >Registration</Link>
         </div>
         <div>
           <Link to="login">Login</Link>

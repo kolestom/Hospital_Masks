@@ -9,7 +9,8 @@ router.post('/login', async (req, res) => {
         if (user[0].password !== req.body.password) {
             return res.send('Wrong password').status(400)
         } else {
-            return res.send(await Hospital.find({id : { $in: user[0].hospitalIds}})).status(200)
+            // return res.send(await Hospital.find({id : { $in: user[0].hospitalIds}})).status(200)
+            return res.send(user[0]).status(200)
         }
     } else return res.send('Username does not exist').status(401)
     
