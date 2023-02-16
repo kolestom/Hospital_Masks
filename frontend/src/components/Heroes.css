@@ -1,0 +1,35 @@
+.heroes-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.members-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 100px;
+}
+
+.person-container {
+  max-width: 200px;
+  height: 200px;
+  text-align: center;
+}
+
+.person-container img {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.person-container strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.person-container p {
+  margin-top: 10px;
+  font-size: 16px;
+}
