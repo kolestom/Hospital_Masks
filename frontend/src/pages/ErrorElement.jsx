@@ -7,12 +7,10 @@ const ErrorElement = () => {
     const error = useRouteError()
     return ( 
         <div id="errorElement">
-            <div>
-
                 <h1>Sorry, there seems to be an error</h1>
-                <p>{error.message || error.statusText}</p>
-                <Link to="/">Back to Home Page</Link>
-            </div>
+                <h3>Please, reload the page or use the button below</h3>
+                <p id="e_message">Error message: {error.message || error.statusText}</p>
+                <Link id="e_button" to="/">Back to Landing Page</Link>
         </div>
      );
 }

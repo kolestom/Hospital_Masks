@@ -18,11 +18,11 @@ function App() {
         <div className="App">
           <nav>
             <div>
-              <Link to="registration">Registration</Link>
+              <Link className="button" to="registration">Registration</Link>
             </div>
             <div>
-              <Link to="login">Login</Link>
-              <Link to="/">Sign Out</Link>
+              <Link className="button" to="login">Login</Link>
+              <Link className="button" to="/">Sign Out</Link>
             </div>
           </nav>
           <Outlet></Outlet>
