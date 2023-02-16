@@ -27,20 +27,17 @@ const Login = () => {
 
       setUsername("")
       setPassword("")
-      console.log(response);
+      console.log('response', response);
       if (response.status === 200) {
         console.log("bejott");
         setLoggedInUser(response.data)
         setAuthenticated(true)
         navigate("/loggedin")
       }
-      
     } catch (err) {
-      console.error(err);
+      err.response.status === 403 ? alert("Wrong Password!") : alert("Username not found!")
     }
   };
-  console.log(loggedInUser)
-  console.log(authenticated);
 
   return (
     <>

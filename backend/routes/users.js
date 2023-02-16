@@ -7,26 +7,23 @@ router.post('/login', async (req, res) => {
     const user = await User.find({username: req.body.username})
     if (user.length > 0) {
         if (user[0].password !== req.body.password) {
-            return res.send('Wrong password').status(400)
+            return res.sendStatus(403)
         } else {
             // return res.send(await Hospital.find({id : { $in: user[0].hospitalIds}})).status(200)
-            return res.send(user[0]).status(200)
+            return res.send(user[0])
         }
-    } else return res.send('Username does not exist').status(401)
+    } else{
+        return res.sendStatus(404)
+    } 
     
 })
 
 router.post('/register', async (req, res) => {
     const user = await User.find({username: req.body.username})
-    if (user.length > 0) return res.send('Username already exists').status(400)
+    if (user.length > 0) return res.sendStatus(403)
     else {
-        await User.create({
-            name: req.body.name,
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        })
-        return res.send('User created').status(200)
+        await User.create(req.body)
+        return res.send('User created.')
     }
 
 })

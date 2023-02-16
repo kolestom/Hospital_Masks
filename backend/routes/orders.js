@@ -20,26 +20,23 @@ router.get('/allhospitals', async (req, res) => {
 
 
 router.post('/order_history', async (req, res) =>{
-    console.log(req.body)
     let invoices = await Invoice.find({ "partner.id": req.body.hospitalID})
     res.send(invoices)
 })
 
-
-router.post('/create_order', async (req, res) => {
-     let product = await Product.find()
-     let availableQuantity = product[0].quantity;
-     console.log(availableQuantity)
-     if (availableQuantity < req.body.quantity) {
-      return res.send(`Elérhető mennyiség: ${availableQuantity} db`).status(400);
+// `Elérhető mennyiség: ${availableQuantity} db`
+router.post("/create_order", async (req, res) => {
+  let product = await Product.find();
+  let availableQuantity = product[0].quantity;
+  
+  if (availableQuantity < req.body.quantity) {
+    return res.sendStatus(400);
   } else {
-        const today = new Date();
-        const dueDate =  new Date(today);
-        dueDate.setDate(today.getDate() + 15);
-        
-            
-    const invoice = await axios.post(
-      "https://api.billingo.hu/v3/documents",
+    const today = new Date();
+    const dueDate = new Date(today);
+    dueDate.setDate(today.getDate() + 15);
+
+    const invoice = await axios.post("https://api.billingo.hu/v3/documents",
       {
         partner_id: req.body.hospitalID,
         block_id: 0,
@@ -83,13 +80,12 @@ router.post('/create_order', async (req, res) => {
         },
       }
     );
-      const newQuantity = availableQuantity - req.body.quantity;
-      await Product.updateOne({}, { quantity: newQuantity });
-      // console.log(res.json(invoice.data))
-      await Invoice.create(invoice.data)
-      return res.status(200).json(invoice.data);
-    }
-})
+    const newQuantity = availableQuantity - req.body.quantity;
+    await Product.updateOne({}, { quantity: newQuantity });
+    await Invoice.create(invoice.data);
+    return res.status(200).json(invoice.data);
+  }
+});
 
 module.exports = router
 

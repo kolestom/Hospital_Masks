@@ -32,7 +32,7 @@ const HospitalPage = () => {
     alert("The order has been sent")
     setQuantity(0)
     } catch (error) {
-      alert(error)
+      alert("Order exceeds the on-stock quantity. Please, choose a lesser amount.")
     }
     
   };

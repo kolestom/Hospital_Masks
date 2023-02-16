@@ -7,11 +7,13 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import LoggedInPage from './pages/LoggedInPage';
 import HospitalPage from './pages/HospitalPage';
+import ErrorElement from './pages/ErrorElement';
 import Heroes from './components/Heroes';
 
 const router = createBrowserRouter([
     {
-        path: "/", element: <App />, children: [
+        path: "/", element: <App />, errorElement: <ErrorElement/>,
+        children: [
             {index: true, element: <Heroes />},
             {path: "login", element: <Login />},
             {path: "registration", element: <Registration />},

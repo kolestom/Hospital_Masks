@@ -1,23 +1,15 @@
-import { useState } from "react"
-import { useEffect } from "react"
+import { useState, useEffect  } from "react"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 const Registration = () => {
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [registrationButton, setRegistrationButton] = useState(true)
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
-
-  const addName = (e) => {
-    setName(e.target.value)
-  }
-
-  const addUserName = (e) => {
-    setUsername(e.target.value)
-  }
-  console.log(username);
 
   const validateUserData = () => {
     if ((/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) && username && password && name) {
@@ -30,16 +22,6 @@ const Registration = () => {
   useEffect(() => {
     validateUserData()
   }, [email, username, password, name])
-
-  const addEmail = (e) => {
-    setEmail(e.target.value)
-  }
-
-  console.log(email);
-
-  const addPassword = (e) => {
-    setPassword(e.target.value)
-  }
 
   const registrationSubmit = async (e) => {
     e.preventDefault();
@@ -54,23 +36,24 @@ const Registration = () => {
       setUsername("")
       setEmail("")
       setPassword("")
-      console.log(response.data);
+      alert(`${response.data} You can log in now.`)
+      navigate('/login')
+
     } catch (err) {
-      console.error(err);
+      alert("Username already exists!")
     }
   };
-
 
   return (
     <>
     <p>name: </p>
-    <input type="text" placeholder="Name" value={name} onChange={addName}/>
+    <input type="text" placeholder="Name" value={name} onChange={(e)=>setName(e.target.value)}/>
     <p>username: </p>
-    <input type="text" placeholder="Username" value={username} onChange={addUserName}/>
+    <input type="text" placeholder="Username" value={username} onChange={(e)=>setUsername(e.target.value)}/>
     <p>email: </p>
-    <input type="email" placeholder="Email" value={email} onChange={addEmail}/>
+    <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
     <p>password: </p>
-    <input type="password" placeholder="Password" value={password} onChange={addPassword} />
+    <input type="password" placeholder="Password" value={password} onChange={(e)=> setPassword(e.target.value)} />
     <button disabled={registrationButton} onClick={registrationSubmit}>Registration</button>
     </>
   )
