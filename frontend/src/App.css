@@ -21,3 +21,8 @@ nav a {
   font-family: 'Montserrat', sans-serif;
   padding: 10px;
 }
+
+.button:hover {
+  background-color: #ca74ff;
+  border-radius: 5px;
+}

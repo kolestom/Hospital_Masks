@@ -74,15 +74,7 @@ const LoggedInPage = () => {
   return (
     <div id="loggedinpage">
       <h1>Available hospitals</h1>
-      <div id="hospital-wrapper">
-        {userHospitals.length === 0 && (
-          <p>There is no available hospital yet...</p>
-        )}
-        {userHospitals &&
-          userHospitals.map((hospi) => (
-            <Hospital key={hospi.id} hospital={hospi} />
-          ))}
-      </div>
+      
       <div id="addnewhospital">
         <select
           onChange={(e) =>
@@ -107,13 +99,13 @@ const LoggedInPage = () => {
         <select
           onChange={(e) =>
             unnecessaryHospitalID(
-              e.target.value === "Choose an unnecessary hospital!"
+              e.target.value === "Choose a hospital!"
                 ? null
                 : e.target.value
             )
           }
         >
-          <option value={null}>Choose a hospital</option>
+          <option value={null}>Choose a hospital!</option>
           {userHospitals.map((hospital) => (
             <option key={hospital.id} value={hospital.id}>
               {hospital.name}
@@ -121,6 +113,15 @@ const LoggedInPage = () => {
           ))}
         </select>
         <button onClick={removeHospital}>Remove a hospital</button>
+      </div>
+      <div id="hospital-wrapper">
+        {userHospitals.length === 0 && (
+          <p>There is no available hospital yet...</p>
+        )}
+        {userHospitals &&
+          userHospitals.map((hospi) => (
+            <Hospital key={hospi.id} hospital={hospi} />
+          ))}
       </div>
     </div>
   );

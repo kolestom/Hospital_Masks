@@ -4,12 +4,12 @@ import "./Hospital.css";
 const Hospital = ({hospital}) => {
 
   return (
-    <div className="hospital-component">
-      <Link state={{hospital}}to={`${hospital.id}`}>
-        <h1>{hospital.name}</h1>
+      <Link className="link" state={{hospital}}to={`${hospital.id}`}>
+        <div className="hospital-component">
+            <h1>{hospital.name}</h1>
+          <h3>{hospital.address.city}</h3>
+        </div>
       </Link>
-      <h3>{hospital.address.city}</h3>
-    </div>
   )
 }
 

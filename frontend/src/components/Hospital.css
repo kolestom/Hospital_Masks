@@ -6,12 +6,11 @@
   height: 200px;
   font-family: 'Montserrat', sans-serif;
   padding: 20px;
-  /* background-color: #9d00ff48; */
   text-align: center;
+  border-radius: 10px;
 }
-.hospital-component a {
-  text-decoration: none;
-}
+
+
 .hospital-component h1 {
   font-size: 20px;
   color: black;
@@ -27,4 +26,12 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 100;
+}
+
+.link {
+  text-decoration: none;
+  
+}
+.link:hover {
+  background-color: #bd99d348;
 }
