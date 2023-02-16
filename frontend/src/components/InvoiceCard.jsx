@@ -14,10 +14,7 @@ function InvoiceCard({ invoice }) {
   };
 
   return (
-    <div
-      className="invoice-card"
-      style={{ border: "1px solid blue", margin: "0.5rem" }}
-    >
+    <div className="invoice-card">
       <div className="invoice-card-header">
         <h2>Invoice {invoice.id}</h2>
         <button onClick={showInvoice}>Show invoice</button>
