@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { AuthProvider } from "./AuthContext";
-import Heroes from "./components/Heroes";
+
 
 function App() {
   return (
@@ -18,16 +18,13 @@ function App() {
         <div className="App">
           <nav>
             <div>
-              <Link to="/registration">Registration</Link>
+              <Link to="registration">Registration</Link>
             </div>
             <div>
-              <Link to="/login">Login</Link>
-              <button>Sign Out</button>
+              <Link to="login">Login</Link>
+              <Link to="/">Sign Out</Link>
             </div>
           </nav>
-
-          <Heroes />
-
           <Outlet></Outlet>
         </div>
       </AuthProvider>

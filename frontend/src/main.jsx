@@ -7,10 +7,12 @@ import Login from './pages/Login';
 import Registration from './pages/Registration';
 import LoggedInPage from './pages/LoggedInPage';
 import HospitalPage from './pages/HospitalPage';
+import Heroes from './components/Heroes';
 
 const router = createBrowserRouter([
     {
         path: "/", element: <App />, children: [
+            {index: true, element: <Heroes />},
             {path: "login", element: <Login />},
             {path: "registration", element: <Registration />},
             {path: "loggedin", element: <LoggedInPage />}, //user idt berakni a linkbe?
