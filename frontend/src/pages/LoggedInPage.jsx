@@ -53,15 +53,15 @@ const LoggedInPage = () => {
   // } else {
     return (
       <div id="loggedinpage">
-        <div id="hospital-wrapper">
-          {usersHospitals && usersHospitals.map(hospi => <Hospital key={hospi.id} hospital={hospi}/>)}
-        </div>
         <div id="addnewhospital">
           <select onChange={e=>setSelectedHospitalID(e.target.value==="Choose a new hospital!" ? null : e.target.value)}>
             <option value={null}>Choose a new hospital!</option>
             {newHospitals.map(hospital=><option key={hospital.id} value={hospital.id}>{hospital.name}</option>)}
           </select>
           <button onClick={addNewHospital}>Add new hospital</button>
+        </div>
+        <div id="hospital-wrapper">
+          {usersHospitals && usersHospitals.map(hospi => <Hospital key={hospi.id} hospital={hospi}/>)}
         </div>
       </div>
     )
