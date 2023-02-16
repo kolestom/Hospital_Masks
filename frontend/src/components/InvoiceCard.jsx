@@ -24,7 +24,10 @@ function InvoiceCard({ invoice }) {
       </div>
       <div className="invoice-card-body">
         <p>
-          <strong>Order Date:</strong> {invoice.fulfillment_date}
+          <strong>Order Date:</strong> {invoice.invoice_date}
+        </p>
+        <p>
+          <strong>Fullfillment Date:</strong> {invoice.fulfillment_date}
         </p>
         <p>
           <strong>Due Date:</strong> {invoice.due_date}

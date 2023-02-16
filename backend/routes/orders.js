@@ -22,30 +22,29 @@ router.post("/order_history", async (req, res) => {
   res.send(invoices);
 });
 
-
-
-router.post('/order_history', async (req, res) =>{
-    let invoices = await Invoice.find({ "partner.id": req.body.hospitalID})
-    res.send(invoices)
-})
+router.post("/order_history", async (req, res) => {
+  let invoices = await Invoice.find({ "partner.id": req.body.hospitalID });
+  res.send(invoices);
+});
 
 router.post("/create_order", async (req, res) => {
   let product = await Product.find();
   let availableQuantity = product[0].quantity;
-  
+
   if (availableQuantity < req.body.quantity) {
     return res.sendStatus(400);
   } else {
-    const today = new Date();
-    const dueDate = new Date(today);
-    dueDate.setDate(today.getDate() + 15);
+    const fullfilmentDate = new Date(req.body.fulfillment_date);
+    const dueDate = new Date(fullfilmentDate);
+    dueDate.setDate(fullfilmentDate.getDate() + 15);
 
-    const invoice = await axios.post("https://api.billingo.hu/v3/documents",
+    const invoice = await axios.post(
+      "https://api.billingo.hu/v3/documents",
       {
         partner_id: req.body.hospitalID,
         block_id: 0,
         type: "invoice",
-        fulfillment_date: today.toISOString().split("T")[0],
+        fulfillment_date: fullfilmentDate.toISOString().split("T")[0],
         due_date: dueDate.toISOString().split("T")[0],
         payment_method: "wire_transfer",
         language: "hu",
@@ -108,6 +107,17 @@ router.post("/invoice_url", async (req, res) => {
 
     console.log("response.data.public_url:", response.data.public_url);
     return res.send(response.data.public_url).status(200);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+router.get("/available_quantity", async (req, res) => {
+  try {
+    let product = await Product.find();
+    let availableQuantity = product[0].quantity.toString();
+    console.log("availableQuantity",availableQuantity);
+    return res.send(availableQuantity);
   } catch (error) {
     console.error(error);
   }
