@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +7,17 @@
 }
 
 nav {
-  background-color: gainsboro;
+  background-color: #9D00FF;
+  /* background-color: #FF10F0; */
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+}
+nav a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  padding: 10px;
 }

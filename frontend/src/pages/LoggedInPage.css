@@ -1,0 +1,16 @@
+#loggedinpage {
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#hospital-wrapper {
+  /* border: 2px solid pink; */
+  width: 1200px;
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
