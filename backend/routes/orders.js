@@ -1,21 +1,26 @@
-const express = require('express')
-const axios = require('axios')
-const router = express.Router()
-const mongoose = require('mongoose')
-const Invoice = require('../models/InvoiceSchema')
-const Product = require('../models/ProductSchema')
+const express = require("express");
+const axios = require("axios");
+const router = express.Router();
+const mongoose = require("mongoose");
+const Invoice = require("../models/InvoiceSchema");
+const Product = require("../models/ProductSchema");
 const Hospital = require("../models/HospitalSchema");
 
+router.get("/allhospitals", async (req, res) => {
+  try {
+    const hospitals = await Hospital.find();
+    return res.send(hospitals).status(200);
+  } catch (e) {
+    console.error(e);
+    return res.send(e.message).status(400);
+  }
+});
 
-router.get('/allhospitals', async (req, res) => {
-    try {
-      const hospitals = await Hospital.find();
-      return res.send(hospitals).status(200)
-    } catch (e) {
-      console.error(e);
-      return res.send(e.message).status(400)
-    }
-})
+router.post("/order_history", async (req, res) => {
+  console.log(req.body);
+  let invoices = await Invoice.find({ "partner.id": req.body.hospitalID });
+  res.send(invoices);
+});
 
 
 
@@ -24,7 +29,6 @@ router.post('/order_history', async (req, res) =>{
     res.send(invoices)
 })
 
-// `Elérhető mennyiség: ${availableQuantity} db`
 router.post("/create_order", async (req, res) => {
   let product = await Product.find();
   let availableQuantity = product[0].quantity;
@@ -87,5 +91,26 @@ router.post("/create_order", async (req, res) => {
   }
 });
 
-module.exports = router
+router.post("/invoice_url", async (req, res) => {
+  try {
+    const data = "";
+    const config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: `https://api.billingo.hu/v3/documents/${req.body.invoiceId}/public-url`,
+      headers: {
+        "X-API-KEY": "a6ea6778-aba3-11ed-9767-0254eb6072a0",
+      },
+      data: data,
+    };
 
+    const response = await axios(config);
+
+    console.log("response.data.public_url:", response.data.public_url);
+    return res.send(response.data.public_url).status(200);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+module.exports = router;
