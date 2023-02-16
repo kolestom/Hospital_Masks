@@ -28,22 +28,28 @@ router.post("/register", async (req, res) => {
 
 router.put("/update", async (req, res) => {
   const user = await User.find({ username: req.body.username });
-  const response = await User.updateOne(
+  const updatedUser = await User.updateOne(
     { username: req.body.username },
     { hospitalIds: [...user[0].hospitalIds, req.body.hospitalId] }
   );
-  console.log(response);
+  console.log(updatedUser.data);
   return res.send(await User.find({ username: req.body.username }));
 });
 
 router.put("/update_remove", async (req, res) => {
-  const user = await User.find({ username: req.body.username });
-  const response = await User.updateOne(
-    { username: req.body.username },
-    { hospitalIds: [...user[0].hospitalIds, req.body.hospitalId] }
-  );
-  console.log(response);
-  return res.send(await User.find({ username: req.body.username }));
+  try {
+    // const user = await User.findOne({ username: req.body.username });
+    const updatedUser = await User.updateOne(
+      { username: req.body.username },
+      { $pull: { hospitalIds: req.body.hospitalId } },
+      { new: true }
+    );
+    console.log(updatedUser.data);
+    return res.json(updatedUser.data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Szerverhiba");
+  }
 });
 
 module.exports = router;

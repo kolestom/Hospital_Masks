@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding-top: 3rem;
 }
 
 #hospital-wrapper {
@@ -17,4 +19,9 @@
 
 #addnewhospital {
   padding-top: 2rem;
+}
+
+#addnewhospital, #removehospital {
+  margin: 0.5em;
+  width: 40vw;
 }

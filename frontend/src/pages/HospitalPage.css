@@ -17,9 +17,35 @@
   padding: 20px;
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
+  border: 1px solid #9D00FF;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
+
+.order-container h1 {
+  padding: -20px;
+}
+
 .order-history {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#hospital-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-container input {
+  width: 120px;
+  height: 20px;
+  text-align: center;
 }

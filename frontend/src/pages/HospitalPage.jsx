@@ -67,14 +67,14 @@ const HospitalPage = () => {
     <div id="hospital-page">
       <div id="hospital-page-hospital">
         <h1>{hospital.name}</h1>
-        <p>{hospital.address.city}</p>
+        <h2>{hospital.address.city}</h2>
       </div>
       <div className="order-container">
+        <h3>New order</h3>
         <label htmlFor="orderquantity">
           How many masks would you like to order? (Available:{" "}
           {availableQuantity})
         </label>
-        <br/>
         <input
           type="number"
           min={0}
@@ -92,9 +92,11 @@ const HospitalPage = () => {
         />
         <button onClick={createOrder}>Send Order</button>
         <button onClick={() => navigate(-1)}>Go back</button>
-        <div>Total price: {quantity*unitPrice}</div>
+        <div>Total price: {quantity*unitPrice} HUF</div>
       </div>
+      <h2 style={{marginTop: "2rem"}}>Order history</h2>
       <div className="order-history">
+        
         {!invoices && <p>There is no order history</p>}
         {invoices &&
           invoices

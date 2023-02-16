@@ -41,8 +41,8 @@ const LoggedInPage = () => {
       setLoggedInUser(response.data[0]);
     }
   };
-  
-  const removeHospital = async (e) => {
+
+  const removeHospital = async () => {
     console.log(unnecessaryHospitalID);
     if (unnecessaryHospitalID) {
       const response = await axios.put(
@@ -52,11 +52,9 @@ const LoggedInPage = () => {
           username: loggedInUser.username,
         }
       );
-      console.log(response.data);
       setLoggedInUser(response.data[0]);
     }
   };
-
 
   useEffect(() => {
     const getHospitals = async () => {
@@ -68,22 +66,19 @@ const LoggedInPage = () => {
     getHospitals();
   }, []);
 
-  // if (!authenticated) {
-  //   return <Navigate replace to="/" />
-  // } else {
   return (
     <div id="loggedinpage">
       <h1>Available hospitals</h1>
-      
+
       <div id="addnewhospital">
         <select
-          onChange={(e) =>
+          onChange={(e) => {
             setSelectedHospitalID(
               e.target.value === "Choose a new hospital!"
                 ? null
                 : e.target.value
-            )
-          }
+            );
+          }}
         >
           <option value={null}>Choose a new hospital!</option>
           {newHospitals.map((hospital) => (
@@ -97,13 +92,12 @@ const LoggedInPage = () => {
 
       <div id="removehospital">
         <select
-          onChange={(e) =>
-            unnecessaryHospitalID(
-              e.target.value === "Choose a hospital!"
-                ? null
-                : e.target.value
-            )
-          }
+          onChange={(e) => {
+            console.log(e.target.value);
+            setUnnecessaryHospitalID(
+              e.target.value === "Choose a hospital!" ? null : e.target.value
+            );
+          }}
         >
           <option value={null}>Choose a hospital!</option>
           {userHospitals.map((hospital) => (
@@ -112,7 +106,13 @@ const LoggedInPage = () => {
             </option>
           ))}
         </select>
-        <button onClick={removeHospital}>Remove a hospital</button>
+        <button
+          onClick={() => {
+            removeHospital();
+          }}
+        >
+          Remove a hospital
+        </button>
       </div>
       <div id="hospital-wrapper">
         {userHospitals.length === 0 && (
@@ -126,6 +126,5 @@ const LoggedInPage = () => {
     </div>
   );
 };
-
 
 export default LoggedInPage;

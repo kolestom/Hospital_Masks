@@ -36,7 +36,7 @@ function InvoiceCard({ invoice }) {
           <strong>Net Price:</strong> {invoice.items[0].net_amount} HUF
         </p>
         <p>
-          <strong>VAT:</strong> {invoice.items[0].vat} EUR
+          <strong>VAT:</strong> {invoice.items[0].vat} 
         </p>
         <p>
           <strong>Gross Price:</strong> {invoice.items[0].gross_amount} HUF
