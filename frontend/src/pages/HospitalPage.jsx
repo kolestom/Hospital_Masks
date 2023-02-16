@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import InvoiceCard from "../components/InvoiceCard";
+import "./HospitalPage.css";
 
 const HospitalPage = () => {
   const [quantity, setQuantity] = useState(0);
@@ -63,14 +64,17 @@ const HospitalPage = () => {
   }, []);
 
   return (
-    <>
-      <h1>{hospital.name}</h1>
-      <p>{hospital.address.city}</p>
+    <div id="hospital-page">
+      <div id="hospital-page-hospital">
+        <h1>{hospital.name}</h1>
+        <p>{hospital.address.city}</p>
+      </div>
       <div className="order-container">
         <label htmlFor="orderquantity">
           How many masks would you like to order? (Available:{" "}
           {availableQuantity})
         </label>
+        <br/>
         <input
           type="number"
           min={0}
@@ -90,14 +94,14 @@ const HospitalPage = () => {
         <button onClick={() => navigate(-1)}>Go back</button>
         <div>Total price: {quantity*unitPrice}</div>
       </div>
-      <div className="order-history" style={{ border: "2px solid red" }}>
+      <div className="order-history">
         {!invoices && <p>There is no order history</p>}
         {invoices &&
           invoices
             .sort((a, b) => b.id - a.id)
             .map((item) => <InvoiceCard key={item.id} invoice={item} />)}
       </div>
-    </>
+    </div>
   );
 };
 export default HospitalPage;
