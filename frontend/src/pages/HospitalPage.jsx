@@ -83,6 +83,7 @@ const HospitalPage = () => {
           type="date"
           name="orderdate"
           value={orderDate}
+          min={new Date().toISOString().split("T")[0]}
           onChange={(e) => setOrderDate(e.target.value)}
         />
         <button onClick={createOrder}>Send Order</button>

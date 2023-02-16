@@ -1,72 +1,130 @@
-import { useState, useEffect } from "react"
-import { Navigate } from "react-router-dom"
-import Hospital from "../components/Hospital"
-import axios from "axios"
-import { useContext } from "react"
-import AuthContext from "../AuthContext"
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import Hospital from "../components/Hospital";
+import axios from "axios";
+import { useContext } from "react";
+import AuthContext from "../AuthContext";
+import { Link } from "react-router-dom";
 import "./LoggedInPage.css";
 
 const LoggedInPage = () => {
-
-  const { loggedInUser, setLoggedInUser } = useContext(AuthContext)
-  const [ allHospitals, setAllHospitals] = useState([])
-  const [selectedHospitalID,setSelectedHospitalID] = useState(null)
-
-
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
+  const [allHospitals, setAllHospitals] = useState([]);
+  const [selectedHospitalID, setSelectedHospitalID] = useState(null);
+  const [unnecessaryHospitalID, setUnnecessaryHospitalID] = useState();
 
   console.log(loggedInUser);
 
-  let usersHospitals = []
-  for (let hospi of allHospitals ) {
+  let userHospitals = [];
+  for (let hospi of allHospitals) {
     for (let userhospi of loggedInUser.hospitalIds) {
       if (userhospi === hospi.id) {
-        usersHospitals.push(hospi)
+        userHospitals.push(hospi);
       }
     }
   }
-  let newHospitals = allHospitals.filter(hospi=>!loggedInUser.hospitalIds.includes(hospi.id))
-  
+  let newHospitals = allHospitals.filter(
+    (hospi) => !loggedInUser.hospitalIds.includes(hospi.id)
+  );
 
   const addNewHospital = async (e) => {
-    console.log(selectedHospitalID)
+    console.log(selectedHospitalID);
     if (selectedHospitalID) {
-      const response = await axios.put('http://localhost:7777/api/users/update', {
-        hospitalId: selectedHospitalID, username: loggedInUser.username 
-      })
-      console.log(response.data)
-      setLoggedInUser(response.data[0])
+      const response = await axios.put(
+        "http://localhost:7777/api/users/update",
+        {
+          hospitalId: selectedHospitalID,
+          username: loggedInUser.username,
+        }
+      );
+      console.log(response.data);
+      setLoggedInUser(response.data[0]);
     }
-  }
+  };
+  
+  const removeHospital = async (e) => {
+    console.log(unnecessaryHospitalID);
+    if (unnecessaryHospitalID) {
+      const response = await axios.put(
+        "http://localhost:7777/api/users/update_remove",
+        {
+          hospitalId: unnecessaryHospitalID,
+          username: loggedInUser.username,
+        }
+      );
+      console.log(response.data);
+      setLoggedInUser(response.data[0]);
+    }
+  };
+
 
   useEffect(() => {
     const getHospitals = async () => {
-      const response = await axios.get("http://localhost:7777/api/orders/allhospitals")
-      setAllHospitals(response.data)
-    }
-    getHospitals()
-  }, [])
-
+      const response = await axios.get(
+        "http://localhost:7777/api/orders/allhospitals"
+      );
+      setAllHospitals(response.data);
+    };
+    getHospitals();
+  }, []);
 
   // if (!authenticated) {
   //   return <Navigate replace to="/" />
   // } else {
-    return (
-      <div id="loggedinpage">
-        <div id="hospital-wrapper">
-          {usersHospitals && usersHospitals.map(hospi => <Hospital key={hospi.id} hospital={hospi}/>)}
-        </div>
-        <div id="addnewhospital">
-          <select onChange={e=>setSelectedHospitalID(e.target.value==="Choose a new hospital!" ? null : e.target.value)}>
-            <option value={null}>Choose a new hospital!</option>
-            {newHospitals.map(hospital=><option key={hospital.id} value={hospital.id}>{hospital.name}</option>)}
-          </select>
-          <button onClick={addNewHospital}>Add new hospital</button>
-        </div>
+  return (
+    <div id="loggedinpage">
+      <h1>Available hospitals</h1>
+      <div id="hospital-wrapper">
+        {userHospitals.length === 0 && (
+          <p>There is no available hospital yet...</p>
+        )}
+        {userHospitals &&
+          userHospitals.map((hospi) => (
+            <Hospital key={hospi.id} hospital={hospi} />
+          ))}
       </div>
-    )
-  }
+      <div id="addnewhospital">
+        <select
+          onChange={(e) =>
+            setSelectedHospitalID(
+              e.target.value === "Choose a new hospital!"
+                ? null
+                : e.target.value
+            )
+          }
+        >
+          <option value={null}>Choose a new hospital!</option>
+          {newHospitals.map((hospital) => (
+            <option key={hospital.id} value={hospital.id}>
+              {hospital.name}
+            </option>
+          ))}
+        </select>
+        <button onClick={addNewHospital}>Add new hospital</button>
+      </div>
 
-  
-// }
-export default LoggedInPage
+      <div id="removehospital">
+        <select
+          onChange={(e) =>
+            unnecessaryHospitalID(
+              e.target.value === "Choose an unnecessary hospital!"
+                ? null
+                : e.target.value
+            )
+          }
+        >
+          <option value={null}>Choose a hospital</option>
+          {userHospitals.map((hospital) => (
+            <option key={hospital.id} value={hospital.id}>
+              {hospital.name}
+            </option>
+          ))}
+        </select>
+        <button onClick={removeHospital}>Remove a hospital</button>
+      </div>
+    </div>
+  );
+};
+
+
+export default LoggedInPage;
