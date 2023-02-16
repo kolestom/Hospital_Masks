@@ -11,9 +11,13 @@ import { Link } from "react-router-dom"
 
 const LoggedInPage = () => {
 
-  const { loggedInUser } = useContext(AuthContext)
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext)
 
   const [ allHospitals, setAllHospitals] = useState([])
+  
+  const [selectedHospitalID,setSelectedHospitalID] = useState(null)
+
+
 
   console.log(loggedInUser);
 
@@ -25,6 +29,19 @@ const LoggedInPage = () => {
       }
     }
   }
+  let newHospitals = allHospitals.filter(hospi=>!loggedInUser.hospitalIds.includes(hospi.id))
+  
+
+  const addNewHospital = async (e) => {
+    console.log(selectedHospitalID)
+    if (selectedHospitalID) {
+      const response = await axios.put('http://localhost:7777/api/users/update', {
+        hospitalId: selectedHospitalID, username: loggedInUser.username 
+      })
+      console.log(response.data)
+      setLoggedInUser(response.data[0])
+    }
+  }
 
   useEffect(() => {
     const getHospitals = async () => {
@@ -34,8 +51,6 @@ const LoggedInPage = () => {
     getHospitals()
   }, [])
 
-  console.log(allHospitals);
-
 
   // if (!authenticated) {
   //   return <Navigate replace to="/" />
@@ -44,6 +59,11 @@ const LoggedInPage = () => {
       <>
       {usersHospitals && usersHospitals.map(hospi => <Hospital key={hospi.id} hospital={hospi}/>)}
       
+      <select onChange={e=>setSelectedHospitalID(e.target.value==="Choose a new hospital!" ? null : e.target.value)}>
+        <option value={null}>Choose a new hospital!</option>
+        {newHospitals.map(hospital=><option key={hospital.id} value={hospital.id}>{hospital.name}</option>)}
+      </select>
+      <button onClick={addNewHospital}>Add new hospital</button>
       </>
     )
   }

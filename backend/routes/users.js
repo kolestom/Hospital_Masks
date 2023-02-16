@@ -31,4 +31,11 @@ router.post('/register', async (req, res) => {
 
 })
 
+router.put('/update', async(req,res) => {
+    const user = await User.find({username: req.body.username})
+    const response = await User.updateOne({username: req.body.username}, {hospitalIds: [...user[0].hospitalIds,req.body.hospitalId]})
+    console.log(response)
+    return res.send(await User.find({username: req.body.username}))
+})
+
 module.exports = router
