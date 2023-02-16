@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useEffect } from "react"
 import axios from 'axios'
+import "./Registration.css";
 
 const Registration = () => {
 
@@ -62,17 +63,20 @@ const Registration = () => {
 
 
   return (
-    <>
-    <p>name: </p>
-    <input type="text" placeholder="Name" value={name} onChange={addName}/>
-    <p>username: </p>
-    <input type="text" placeholder="Username" value={username} onChange={addUserName}/>
-    <p>email: </p>
-    <input type="email" placeholder="Email" value={email} onChange={addEmail}/>
-    <p>password: </p>
-    <input type="password" placeholder="Password" value={password} onChange={addPassword} />
-    <button disabled={registrationButton} onClick={registrationSubmit}>Registration</button>
-    </>
+    <div id="registration-page">
+      <div id="registration-wrapper">
+      <h2>Registration</h2>
+      <p>name: </p>
+      <input type="text" placeholder="Name" value={name} onChange={addName}/>
+      <p>username: </p>
+      <input type="text" placeholder="Username" value={username} onChange={addUserName}/>
+      <p>email: </p>
+      <input type="email" placeholder="Email" value={email} onChange={addEmail}/>
+      <p>password: </p>
+      <input type="password" placeholder="Password" value={password} onChange={addPassword} /><br/>
+      <button disabled={registrationButton} onClick={registrationSubmit}>Registration</button>
+      </div>
+    </div>
   )
 }
 export default Registration

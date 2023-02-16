@@ -10,20 +10,20 @@ const Heroes = () => {
       </h1>
       <div className="members-container">
         <div className="person-container">
-          <img src="../src/img/luke.jpg" alt="Luke" />
+          <img src="../src/img/luke2.jpg" alt="Luke" />
           <p>
             <strong>Luke Skywalker </strong> CEO
           </p>
           
         </div>
         <div className="person-container">
-          <img src="../src/img/kati.png" alt="Kati" />
+          <img src="../src/img/leia.jpg" alt="Kati" />
           <p>
             <strong>Kati </strong>Padavan fullstack developer
           </p>
         </div>
         <div className="person-container">
-          <img src="../src/img/tamas.jpg" alt="Tamás" />
+          <img src="../src/img/chew.jpg" alt="Tamás" />
           <p>
             <strong>Tamás </strong>Padavan fullstack developer
           </p>
