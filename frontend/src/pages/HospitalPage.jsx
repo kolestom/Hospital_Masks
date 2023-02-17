@@ -15,31 +15,62 @@ const HospitalPage = () => {
   const vat = hospital.address.country_code === "HU" ? "27%" : "0%";
   const unitPrice = hospital.address.country_code === "HU" ? 127 : 100;
 
-  const createOrder = async () => {
+  // const createOrder = async () => {
 
-    try {
-      const resp = await axios.post(
-        "http://localhost:7777/api/orders/create_order",
-        {
-          hospitalID: hospital.id,
-          quantity: quantity,
-          vat: vat,
-          unit_price: unitPrice,
-          fulfillment_date: orderDate,
-        }
-      );
-      const actualInvoice = resp.data;
-      setInvoices([...invoices, actualInvoice]);
-      alert("The order has been sent");
-      setQuantity(0);
-      const maskQuantityInStock = await axios.get(
-        "http://localhost:7777/api/orders/available_quantity"
-      );
-      setAvailableQuantity(maskQuantityInStock.data);
-    } catch (error) {
-      alert(
-        "Order exceeds the on-stock quantity. Please, choose a lesser amount."
-      );
+  //   try {
+  //     const resp = await axios.post(
+  //       "http://localhost:7777/api/orders/create_order",
+  //       {
+  //         hospitalID: hospital.id,
+  //         quantity: quantity,
+  //         vat: vat,
+  //         unit_price: unitPrice,
+  //         fulfillment_date: orderDate,
+  //       }
+  //     );
+  //     const actualInvoice = resp.data;
+  //     setInvoices([...invoices, actualInvoice]);
+  //     alert("The order has been sent");
+  //     setQuantity(0);
+  //     const maskQuantityInStock = await axios.get(
+  //       "http://localhost:7777/api/orders/available_quantity"
+  //     );
+  //     setAvailableQuantity(maskQuantityInStock.data);
+  //   } catch (error) {
+  //     alert(
+  //       "Order exceeds the on-stock quantity. Please, choose a lesser amount."
+  //     );
+  //   }
+  // };
+
+  const createOrder = async () => {
+    if (!quantity) {
+      alert("Please choose a valid amount!");
+    } else {
+      try {
+        const resp = await axios.post(
+          "http://localhost:7777/api/orders/create_order",
+          {
+            hospitalID: hospital.id,
+            quantity: quantity,
+            vat: vat,
+            unit_price: unitPrice,
+            fulfillment_date: orderDate,
+          }
+        );
+        const actualInvoice = resp.data;
+        setInvoices([...invoices, actualInvoice]);
+        alert("The order has been sent");
+        setQuantity(0);
+        const maskQuantityInStock = await axios.get(
+          "http://localhost:7777/api/orders/available_quantity"
+        );
+        setAvailableQuantity(maskQuantityInStock.data);
+      } catch (error) {
+        alert(
+          "Order exceeds the on-stock quantity. Please, choose a lesser amount."
+        );
+      }
     }
   };
 
